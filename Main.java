@@ -7,32 +7,24 @@ public class Main {
         int bias = -5;
 
         Scanner scanner = new Scanner(System.in);
-        int[] digits = new int[9];
-
+        Recognition recognize = new Recognition();
+        int[] digits = new int[15];
         System.out.println("Input grid:");
-        for(int i = 0 ; i < 3 ; i++ ){
+        for(int i = 0 ; i < 5 ; i++){
             String line = scanner.nextLine();
-            for(int j = 0 ; j < 3 ; j++ ){
-                if(line.charAt(j) == '_'){
-                    digits[i * 3 +j] = 0;
+            for(int j = 0 ; j < 3 ; j++  ){
+                int  value = 0;
+                if (line.charAt(j) == 'X'){
+                    value = 1;
                 }
-                else {
-                    digits[i * 3 +j] = 1;
-                }
+                digits[i * 3 + j ] = value;
+
             }
         }
 
-        int sum = bias;
-        for (int i = 0 ; i < digits.length ; i++ ){
-            sum += weights[i] * digits[i];
-        }
-        System.out.print("This number is ");
-        if (sum >= 0){
-            System.out.println("0");
-        }
-        else {
-            System.out.println("1");
-        }
-
+        recognize.setDigits(digits);
+        recognize.compute();
+        int digit = recognize.getDigit();
+        System.out.println("This number is " + digit);
     }
 }
